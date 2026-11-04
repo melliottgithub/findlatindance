@@ -18,6 +18,9 @@ export const metadata: Metadata = {
     siteName: 'FindLatinDance',
     type: 'website',
   },
+  verification: {
+    google: 'Kgudpzi7cfTtEZG_VFsf_SrK6s4u-6eMnvuP-gFA0u4',
+  },
 };
 
 export default function RootLayout({
