@@ -6,6 +6,8 @@ import { eventCanonicalSlug } from '@/lib/slugs';
 import { countryForCity } from '@/lib/city-country';
 import { generateBreadcrumbJsonLd, generateEventJsonLd, safeJsonLdString } from '@/lib/structured-data';
 import { FallbackImg } from '@/components/ui/FallbackImg';
+import { NextNav } from '@/components/events/NextNav';
+import { ThisWeekInCity } from '@/components/events/ThisWeekInCity';
 import type { Metadata } from 'next';
 import type { LatinEvent } from '@/types';
 
@@ -100,13 +102,16 @@ export default async function EventDetailPage({ params }: { params: Promise<{ sl
             <span className="text-zinc-200 truncate">{event.companyName}</span>
           </nav>
 
-          <Link
-            href={`/cities/${event.citySlug}`}
-            className="inline-flex items-center text-xs font-semibold text-amber-400 hover:text-amber-300 transition"
-          >
-            <ArrowLeft className="mr-1.5 h-3.5 w-3.5" />
-            Back to {event.city} Latin Scene
-          </Link>
+          <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
+            <Link
+              href={`/cities/${event.citySlug}`}
+              className="inline-flex items-center text-xs font-semibold text-amber-400 hover:text-amber-300 transition"
+            >
+              <ArrowLeft className="mr-1.5 h-3.5 w-3.5" />
+              Back to {event.city} Latin Scene
+            </Link>
+            <NextNav />
+          </div>
         </div>
 
         {/* Main Event Card */}
@@ -249,8 +254,22 @@ export default async function EventDetailPage({ params }: { params: Promise<{ sl
                     Get Directions
                   </a>
                 </div>
+
+                {/* This Week in City Discovery Strip */}
+                <div className="mt-8">
+                  <ThisWeekInCity
+                    city={event.city}
+                    currentEventId={event.id}
+                    events={events.filter((e) => e.city.toLowerCase() === event.city.toLowerCase())}
+                  />
+                </div>
               </div>
             </div>
+          </div>
+
+          {/* Bottom Step-Through Navigation */}
+          <div className="mt-8 flex justify-center">
+            <NextNav />
           </div>
 
           {/* Related Events in City */}

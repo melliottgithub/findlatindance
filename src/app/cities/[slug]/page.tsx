@@ -2,6 +2,8 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { EventCard } from '@/components/events/EventCard';
 import { CitySceneGuide } from '@/components/cities/CitySceneGuide';
+import { ListNavScope } from '@/components/events/ListNavScope';
+import { CityWeekendDigestSignup } from '@/components/cities/CityWeekendDigestSignup';
 import { getCityHeroImage, getCityHeroJpg } from '@/lib/city-hero-images';
 import { countryForCity } from '@/lib/city-country';
 import { generateBreadcrumbJsonLd, generateCityWebPageJsonLd, generateFAQJsonLd, safeJsonLdString } from '@/lib/structured-data';
@@ -226,12 +228,19 @@ export default async function CityPage({ params }: CityPageProps) {
 
         {/* Event Cards Grid */}
         <section aria-label={`Latin dance events in ${cityName}`}>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {cityEvents.map((event) => (
-              <EventCard key={event.id} event={event} />
-            ))}
-          </div>
+          <ListNavScope listKey={`city:${slug}`} label={cityName}>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {cityEvents.map((event) => (
+                <EventCard key={event.id} event={event} />
+              ))}
+            </div>
+          </ListNavScope>
         </section>
+
+        {/* City Weekend Digest Retention Box */}
+        <div className="my-12">
+          <CityWeekendDigestSignup cityName={cityName} citySlug={slug} />
+        </div>
 
         {/* Authoritative Local Scene Guide & Frontier GEO Q&As */}
         <div id="scene-guide">

@@ -1,0 +1,20 @@
+# FindLatinDance
+
+> The definitive multi-room Latin dance directory — 1,728 upcoming festivals, congresses, masterclasses, and weekly socials across 39 worldwide dance capitals. Covering Salsa, Bachata Sensual, Brazilian Zouk, and Kizomba under one global roof.
+
+FindLatinDance helps social dancers discover multi-room congresses and weekly parties worldwide. Every page renders server-side HTML with Schema.org JSON-LD (Organization, BreadcrumbList, DanceEvent, EducationEvent, FAQPage, ItemList) so AI assistants and search engines can cite our data accurately.
+
+## Main Navigation & Search
+
+- [Search all Latin dance events](https://findlatindance.com/search): Real-time interactive search across all 39 cities, genres (Salsa, Bachata, Zouk, Kizomba), venues, and dates.
+- [Worldwide Multi-Room Latin Congresses](https://findlatindance.com/festivals): 110+ multi-room dance celebrations worldwide.
+- [Latin Dance Festivals 2026](https://findlatindance.com/festivals/2026) · [Latin Dance Festivals 2027](https://findlatindance.com/festivals/2027) · [This Month](https://findlatindance.com/festivals/this-month) · [This Weekend](https://findlatindance.com/festivals/this-weekend)
+
+## Top Dance Capitals
+
+- [Latin Dance in Miami](https://findlatindance.com/cities/miami): The Latin dance capital of the Americas with multi-room mega-events, Calle Ocho culture, and beach socials.
+- [Latin Dance in Madrid](https://findlatindance.com/cities/madrid): Europe's epicenter for Bachata Sensual, Cuban casino, and Mambo On2 socials.
+- [Latin Dance in London](https://findlatindance.com/cities/london): Daily multi-genre socials, SBK parties, and international congresses.
+- [Latin Dance in New York](https://findlatindance.com/cities/new-york): Historic Mambo ballroom heritage, Brooklyn Kizomba, and rooftop Brazilian Zouk.
+- [Latin Dance in Barcelona](https://findlatindance.com/cities/barcelona): Mediterranean dance congresses and beachfront social nights.
+- [Latin Dance in Paris](https://findlatindance.com/cities/paris): World capital of Urban Kiz, Parisian salsa marathons, and riverside sensual dancing.
