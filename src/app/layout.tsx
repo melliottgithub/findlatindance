@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import Script from 'next/script';
 import './globals.css';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
@@ -33,22 +32,24 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark">
-      <body className="min-h-screen flex flex-col bg-[#070709] text-[#f8fafc] antialiased selection:bg-amber-500/30 selection:text-amber-200">
-        <Script
-          strategy="afterInteractive"
+      <head>
+        {/* Google tag (gtag.js) */}
+        <script
+          async
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
         />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${GA_MEASUREMENT_ID}', {
-              client_storage: 'none',
-              anonymize_ip: true
-            });
-          `}
-        </Script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${GA_MEASUREMENT_ID}');
+            `,
+          }}
+        />
+      </head>
+      <body className="min-h-screen flex flex-col bg-[#070709] text-[#f8fafc] antialiased selection:bg-amber-500/30 selection:text-amber-200">
         <Header />
         <main className="flex-1 pb-16 md:pb-0">
           {children}
