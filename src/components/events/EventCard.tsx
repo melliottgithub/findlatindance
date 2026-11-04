@@ -1,5 +1,6 @@
 import { Calendar, Clock, Crown, ExternalLink, MapPin, Sparkles, Users } from 'lucide-react';
 import { FestivalPoster } from '@/components/festivals/FestivalPoster';
+import { FallbackImg } from '@/components/ui/FallbackImg';
 import { countryForCity } from '@/lib/city-country';
 import type { LatinDanceEvent } from '@/types';
 
@@ -122,88 +123,103 @@ export function EventCard({ event }: EventCardProps) {
     );
   }
 
-  // 2. Rich Social & Class Card
+  // 2. Rich Social & Class Card (FindBachata parity: left thumbnail tile + FallbackImg)
   return (
-    <article className="glass-gold-card group relative flex flex-col justify-between overflow-hidden rounded-2xl p-5 sm:p-6">
+    <article className="glass-gold-card group relative flex flex-col justify-between overflow-hidden rounded-2xl p-4 sm:p-5 transition-all duration-300 hover:-translate-y-[2px] hover:border-amber-400/40">
       <div>
-        {/* Top Header Pill Row */}
-        <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
-          <div className="flex flex-wrap items-center gap-1.5">
-            <span className={`rounded-full px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wider ${
-              isSocial ? 'badge-prestige-gold' : 'bg-purple-950/60 border border-purple-400/30 text-purple-300'
-            }`}>
-              {event.eventType}
-            </span>
-            {event.danceStyles.map((style) => (
-              <span key={style} className="rounded-full bg-white/5 border border-white/10 px-2.5 py-0.5 text-xs text-zinc-300">
-                {style}
+        <div className="flex items-start gap-3.5 sm:gap-4">
+          {/* Flyer Thumbnail (if present) OR Date Column (if absent) */}
+          {event.imageUrl ? (
+            <div className="relative flex-shrink-0">
+              <FallbackImg
+                src={event.imageUrl}
+                alt={`${event.companyName} flyer`}
+                loading="lazy"
+                decoding="async"
+                className="h-24 w-20 rounded-xl object-cover border border-white/15 shadow-lg bg-white/[0.02]"
+                placeholder={
+                  <div
+                    aria-hidden="true"
+                    className="h-24 w-20 rounded-xl border border-white/15 bg-gradient-to-br from-amber-600/30 via-orange-700/20 to-purple-900/20"
+                  />
+                }
+              />
+              <div className="absolute -bottom-2 -left-1 rounded-lg bg-black/85 px-2 py-0.5 text-[10px] font-bold text-white border border-white/15 backdrop-blur-md shadow-sm">
+                {event.dateTime.day?.slice(0, 3) ?? ''} {event.date?.slice(8, 10) ?? ''}
+              </div>
+            </div>
+          ) : (
+            <div className="flex flex-col items-center justify-center rounded-xl bg-gradient-to-b from-white/[0.08] to-white/[0.02] px-3 py-2.5 min-w-[60px] border border-white/10 shadow-inner flex-shrink-0">
+              <span className="text-[11px] font-semibold uppercase tracking-wider text-amber-300/80">
+                {event.dateTime.day?.slice(0, 3) ?? ''}
               </span>
-            ))}
-          </div>
-
-          <div className="flex items-center gap-1.5">
-            <span className="text-sm" aria-hidden="true">{country.flag}</span>
-            {event.price && (
-              <span className="text-xs font-bold text-amber-300">
-                {event.price}
+              <span className="text-xl font-bold text-white leading-tight">
+                {event.date?.slice(8, 10) ?? ''}
               </span>
-            )}
-          </div>
-        </div>
+              <span className="text-[11px] text-white/50">
+                {event.date?.slice(5, 7)}/{event.date?.slice(2, 4)}
+              </span>
+            </div>
+          )}
 
-        {/* Optional Event Flyer Thumbnail for Socials */}
-        {event.imageUrl && (
-          <div className="relative mb-3 h-32 w-full overflow-hidden rounded-xl border border-white/5 bg-black/40">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={event.imageUrl}
-              alt=""
-              aria-hidden="true"
-              className="absolute inset-0 h-full w-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-300"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#101016] via-transparent to-transparent" />
-          </div>
-        )}
+          {/* Details Column */}
+          <div className="min-w-0 flex-1">
+            <div className="flex flex-wrap items-center justify-between gap-1 mb-1.5">
+              <div className="flex flex-wrap items-center gap-1.5">
+                <span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider ${
+                  isSocial ? 'badge-prestige-gold' : 'bg-purple-950/60 border border-purple-400/30 text-purple-300'
+                }`}>
+                  {event.eventType}
+                </span>
+                {event.danceStyles.slice(0, 3).map((style) => (
+                  <span key={style} className="rounded-full bg-white/5 border border-white/10 px-2 py-0.5 text-[10px] text-zinc-300">
+                    {style}
+                  </span>
+                ))}
+              </div>
+              <div className="flex items-center gap-1">
+                <span className="text-xs" aria-hidden="true">{country.flag}</span>
+                {event.price && (
+                  <span className="text-[11px] font-bold text-amber-300">
+                    {event.price}
+                  </span>
+                )}
+              </div>
+            </div>
 
-        {/* Title */}
-        <h3 className="font-display text-lg sm:text-xl font-bold text-white group-hover:text-amber-300 transition leading-snug">
-          {event.companyName}
-        </h3>
+            <h3 className="font-display text-base sm:text-lg font-bold text-white group-hover:text-amber-300 transition leading-snug truncate">
+              {event.companyName}
+            </h3>
 
-        {/* Date & Time */}
-        <div className="mt-3 flex flex-wrap items-center gap-y-1 gap-x-4 text-xs sm:text-sm text-zinc-400">
-          <div className="flex items-center gap-1.5">
-            <Calendar className="h-4 w-4 text-amber-400" />
-            <span>{event.dateTime.day ? `${event.dateTime.day}, ` : ''}{event.date}</span>
+            <div className="mt-2 space-y-1 text-xs text-zinc-400">
+              <div className="flex items-center gap-1.5">
+                <Clock className="h-3.5 w-3.5 text-zinc-400 shrink-0" />
+                <span>{event.dateTime.startTime} – {event.dateTime.endTime}</span>
+              </div>
+              <div className="flex items-center gap-1.5 truncate">
+                <MapPin className="h-3.5 w-3.5 text-amber-500/70 shrink-0" />
+                <span className="truncate">{event.location}</span>
+              </div>
+            </div>
           </div>
-          <div className="flex items-center gap-1.5">
-            <Clock className="h-4 w-4 text-zinc-500" />
-            <span>{event.dateTime.startTime} – {event.dateTime.endTime}</span>
-          </div>
-        </div>
-
-        {/* Location */}
-        <div className="mt-2.5 flex items-start gap-1.5 text-xs sm:text-sm text-zinc-400">
-          <MapPin className="h-4 w-4 shrink-0 text-amber-500/70 mt-0.5" />
-          <span className="line-clamp-1">{event.location}</span>
         </div>
 
         {/* Description */}
-        <p className="mt-3 text-xs sm:text-sm text-zinc-400 line-clamp-2 leading-relaxed">
+        <p className="mt-3 text-xs text-zinc-400 line-clamp-2 leading-relaxed">
           {event.description}
         </p>
       </div>
 
       {/* Bottom Action CTA */}
-      <div className="mt-5 flex items-center justify-between border-t border-white/5 pt-4">
-        <span className="text-xs font-medium text-zinc-400">
+      <div className="mt-4 flex items-center justify-between border-t border-white/5 pt-3">
+        <span className="text-xs font-medium text-zinc-400 truncate mr-2">
           {event.city}, {country.name}
         </span>
         <a
           href={event.eventUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="btn-gold-primary text-xs py-1.5 px-3.5"
+          className="btn-gold-primary text-xs py-1.5 px-3.5 flex-shrink-0"
         >
           {isSocial ? 'Join Social' : 'Class Info'}
           <ExternalLink className="ml-1.5 h-3.5 w-3.5" />

@@ -1,11 +1,9 @@
 /** @type {import('next').NextConfig} */
-const isExport = process.env.OUTPUT_MODE === 'export';
-
 const nextConfig = {
-  output: isExport ? 'export' : undefined,
+  output: 'export',
   trailingSlash: true,
   images: {
-    unoptimized: isExport,
+    unoptimized: true,
   },
   reactStrictMode: true,
 };
