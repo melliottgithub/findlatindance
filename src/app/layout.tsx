@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
+import { BottomTabBar } from '@/components/layout/BottomTabBar';
 
 export const metadata: Metadata = {
   title: 'FindLatinDance — Multi-Room Congresses, Festivals & Latin Nights Worldwide',
@@ -28,10 +29,11 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <body className="min-h-screen flex flex-col bg-[#070709] text-[#f8fafc] antialiased selection:bg-amber-500/30 selection:text-amber-200">
         <Header />
-        <main className="flex-1">
+        <main className="flex-1 pb-16 md:pb-0">
           {children}
         </main>
         <Footer />
+        <BottomTabBar />
       </body>
     </html>
   );

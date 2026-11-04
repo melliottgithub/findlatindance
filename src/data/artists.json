@@ -1,0 +1,98 @@
+[
+  {
+    "id": "alfredo-andrea",
+    "name": "Alfredo & Andrea",
+    "nickname": "World Latin Fusion Champions",
+    "role": "Master Instructors & Headliners",
+    "city": "Alicante",
+    "country": "Spain",
+    "styles": ["Salsa On2", "Bachata Sensual", "Bachata Fusion"],
+    "bio": "Multiple-time world salsa and bachata champions celebrated for explosive acrobatics, high-speed spin combinations, and unmatched stage musicality across European congresses.",
+    "instagram": "https://instagram.com/alfredoyandreaoficial",
+    "matchedNames": ["Alfredo & Andrea", "Alfredo y Andrea", "Alfredo", "Andrea"]
+  },
+  {
+    "id": "masa-polina",
+    "name": "Masa & Polina",
+    "nickname": "Pioneers of Bachazouk",
+    "role": "International Instructors & Innovators",
+    "city": "Tokyo / International",
+    "country": "Japan",
+    "styles": ["Bachazouk", "Brazilian Zouk", "Sensual Bachata"],
+    "bio": "Founders of the Bachazouk curriculum, integrating Brazilian Zouk circular head rolls, counterbalances, and organic wave motion seamlessly into Bachata partnerwork with strict biomechanical safety.",
+    "instagram": "https://instagram.com/masapolina",
+    "matchedNames": ["Masa & Polina", "Masa & Polina Bachazouk", "Masa and Polina", "Bachazouk"]
+  },
+  {
+    "id": "luis-andrea",
+    "name": "Luis & Andrea",
+    "nickname": "Sensual Bachata Masters",
+    "role": "Master Instructors & Performers",
+    "city": "Cádiz",
+    "country": "Spain",
+    "styles": ["Bachata Sensual", "Traditional Bachata", "Body Movement"],
+    "bio": "One of the most requested couples in global Latin dance festivals, renowned for their silky chest connection, fluid musical phrasing, and emotional stage showcases.",
+    "instagram": "https://instagram.com/luisyandreaoficial",
+    "matchedNames": ["Luis & Andrea", "Luis y Andrea", "Luis and Andrea"]
+  },
+  {
+    "id": "ronald-alba",
+    "name": "Ronald & Alba",
+    "nickname": "Estilo & Pasión",
+    "role": "World Champions & Choreographers",
+    "city": "Elche",
+    "country": "Spain",
+    "styles": ["Bachata", "Salsa", "Acrobatic Latin"],
+    "bio": "World Bachata Masters champions revered worldwide for their high-speed turns, dynamic drops, synchronization, and pedagogical clarity in master workshops.",
+    "instagram": "https://instagram.com/ronaldyalbaoficial",
+    "matchedNames": ["Ronald & Alba", "Ronald y Alba", "Ronald and Alba"]
+  },
+  {
+    "id": "nacho-silvia",
+    "name": "Nacho & Silvia",
+    "nickname": "Dynamic Sensual Artists",
+    "role": "International Headliners",
+    "city": "Valencia",
+    "country": "Spain",
+    "styles": ["Bachata Sensual", "Modern Latin", "Choreography"],
+    "bio": "Renowned Spanish artists known for intricate combination leading, smooth circular energy, and electrifying festival appearances across Europe and the Americas.",
+    "instagram": "https://instagram.com/nachoysilvia",
+    "matchedNames": ["Nacho & Silvia", "Nacho y Silvia", "Nacho and Silvia"]
+  },
+  {
+    "id": "kike-nahir",
+    "name": "Kike & Nahir",
+    "nickname": "Sensual & Argentine Elegance",
+    "role": "Master Instructors",
+    "city": "Cádiz",
+    "country": "Spain",
+    "styles": ["Sensual Bachata", "Bachata Fusion"],
+    "bio": "Powerhouse duo fusing Argentine tango intensity with Spanish sensual bachata body isolations, commanding festival main stages worldwide.",
+    "instagram": "https://instagram.com/kikeynahir",
+    "matchedNames": ["Kike & Nahir", "Kike y Nahir", "Kike and Nahir"]
+  },
+  {
+    "id": "dario-sara",
+    "name": "Dario & Sara",
+    "nickname": "European Latin Sensations",
+    "role": "Master Instructors & Performers",
+    "city": "Canary Islands",
+    "country": "Spain",
+    "styles": ["Bachata Sensual", "Body Isolations"],
+    "bio": "Sensational European artists known for breathtaking social dance videos, precise leading technique, and uplifting educational workshops.",
+    "instagram": "https://instagram.com/darioysaraoficial",
+    "matchedNames": ["Dario & Sara", "Dario y Sara", "Dario and Sara"]
+  },
+  {
+    "id": "albir-rojas",
+    "name": "Albir Rojas",
+    "nickname": "The Kizomba Pioneer",
+    "role": "Master Instructor & Performer",
+    "city": "Madrid",
+    "country": "Spain",
+    "styles": ["Kizomba", "Tarraxinha", "Urban Kiz"],
+    "bio": "One of the key figures who introduced Kizomba and Tarraxinha to the international Latin festival circuit, admired for his deep body grounding, musical expression, and infectious warmth.",
+    "instagram": "https://instagram.com/albir_rojas",
+    "matchedNames": ["Albir Rojas", "Albir", "Albir & Sara"]
+  }
+]

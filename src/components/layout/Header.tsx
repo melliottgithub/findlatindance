@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Calendar, Compass, Crown, MapPin, PlusCircle, Search } from 'lucide-react';
+import { BookOpen, Crown, MapPin, Search, Users } from 'lucide-react';
 
 export function Header() {
   return (
@@ -32,13 +32,21 @@ export function Header() {
 
         {/* Center Nav Links */}
         <nav className="hidden md:flex items-center gap-1 text-sm font-medium text-zinc-300">
-          <Link href="/festivals" className="flex items-center gap-1.5 rounded-full px-3.5 py-1.5 transition hover:bg-white/5 hover:text-white">
+          <Link href="/festivals" className="flex items-center gap-1.5 rounded-full px-3 py-1.5 transition hover:bg-white/5 hover:text-white">
             <Crown className="h-4 w-4 text-amber-400" />
             Congresses
           </Link>
-          <Link href="/cities/miami" className="flex items-center gap-1.5 rounded-full px-3.5 py-1.5 transition hover:bg-white/5 hover:text-white">
-            <MapPin className="h-4 w-4 text-rose-400" />
-            Cities
+          <Link href="/search" className="flex items-center gap-1.5 rounded-full px-3 py-1.5 transition hover:bg-white/5 hover:text-white">
+            <Search className="h-4 w-4 text-amber-400" />
+            Search
+          </Link>
+          <Link href="/artists" className="flex items-center gap-1.5 rounded-full px-3 py-1.5 transition hover:bg-white/5 hover:text-white">
+            <Users className="h-4 w-4 text-purple-400" />
+            Artists
+          </Link>
+          <Link href="/learn" className="flex items-center gap-1.5 rounded-full px-3 py-1.5 transition hover:bg-white/5 hover:text-white">
+            <BookOpen className="h-4 w-4 text-emerald-400" />
+            Learn
           </Link>
         </nav>
 
