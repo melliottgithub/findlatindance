@@ -24,5 +24,8 @@ export interface LatinDanceEvent {
   description: string;
   eventUrl: string;
   externalSourceUrl?: string;
+  imageUrl?: string;
+  endDate?: string;
+  artists?: string[];
   status: 'approved' | 'pending';
 }

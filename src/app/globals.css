@@ -59,9 +59,171 @@ h1, h2, h3, h4, .font-display {
   transform: scale(1.02);
 }
 
-/* Subtle gold badge */
 .badge-prestige-gold {
   background: rgba(212, 175, 55, 0.12);
   border: 1px solid rgba(212, 175, 55, 0.35);
   color: #fef08a;
+}
+
+/* Festival Poster & Luxury Card utilities */
+.fcard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 1rem;
+  border: 1px solid rgba(212, 175, 55, 0.22);
+  background: rgba(16, 16, 22, 0.9);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.fcard:hover {
+  border-color: rgba(212, 175, 55, 0.55);
+  background: rgba(22, 22, 30, 0.95);
+  box-shadow: 0 15px 35px -10px rgba(212, 175, 55, 0.3);
+  transform: translateY(-4px);
+}
+.fcard-media {
+  position: relative;
+  display: flex;
+  height: 15rem;
+  width: 100%;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #000000;
+  aspect-ratio: 4 / 5;
+  max-height: 18rem;
+}
+.fcard-band {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  overflow: hidden;
+}
+.fcard-band-glow {
+  pointer-events: none;
+  position: absolute;
+  inset: -100%;
+  background: radial-gradient(circle at center, rgba(212, 175, 55, 0.2), transparent 70%);
+  opacity: 0.7;
+}
+.fcard-badges {
+  position: absolute;
+  left: 0.75rem;
+  top: 0.75rem;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.375rem;
+}
+.fcard-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  background: rgba(0, 0, 0, 0.8);
+  padding: 0.25rem 0.625rem;
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #fef08a;
+  backdrop-filter: blur(8px);
+}
+.fcard-flag {
+  position: absolute;
+  right: 0.75rem;
+  top: 0.75rem;
+  z-index: 10;
+  display: flex;
+  height: 2rem;
+  width: 2rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  background: rgba(0, 0, 0, 0.8);
+  font-size: 1rem;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+.fcard-body {
+  display: flex;
+  min-width: 0;
+  flex: 1 1 0%;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.25rem;
+}
+.fcard-title {
+  margin-bottom: 0.375rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: #ffffff;
+  transition: color 0.2s ease;
+}
+.fcard:hover .fcard-title {
+  color: #fef08a;
+}
+.fcard-meta {
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #a1a1aa;
+}
+.fcard-actions {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 0.875rem;
+}
+.fposter-bg {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+  transform: scale(1.25);
+  object-fit: cover;
+  opacity: 0.35;
+  filter: blur(20px);
+}
+.fposter-fg {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.6));
+  transition: transform 0.3s ease;
+}
+.fcard:hover .fposter-fg {
+  transform: scale(1.03);
+}
+.fposter-shade {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.95), transparent 40%, rgba(0, 0, 0, 0.4));
 }
