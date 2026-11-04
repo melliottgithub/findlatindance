@@ -1,0 +1,44 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test-and-build:
+    name: Test & Static Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run lint
+
+      - name: Run Test Suite
+        run: npm test
+
+      - name: Production Static Build
+        env:
+          OUTPUT_MODE: export
+        run: npm run build
+
+      - name: Verify Build Artifacts
+        run: |
+          test -d out || (echo "Missing out directory!" && exit 1)
+          test -f out/index.html || (echo "Missing out/index.html!" && exit 1)
+          test -f out/festivals/index.html || (echo "Missing out/festivals/index.html!" && exit 1)
+          test -f out/cities/miami/index.html || (echo "Missing out/cities/miami/index.html!" && exit 1)
+          echo "Build verification passed!"

@@ -1,0 +1,178 @@
+[
+  {
+    "id": "miami-sensual-congress-2026",
+    "companyName": "Miami Sensual Bachata & Latin Congress",
+    "eventType": "festival",
+    "danceStyles": ["Bachata", "Salsa", "Brazilian Zouk", "Kizomba"],
+    "ballroomCount": 5,
+    "frequency": "one-time",
+    "date": "2026-11-12",
+    "dateTime": {
+      "startTime": "10:00",
+      "endTime": "06:00",
+      "endsNextDay": true
+    },
+    "city": "Miami",
+    "citySlug": "miami",
+    "country": "United States",
+    "location": "Hyatt Regency Miami, 400 SE 2nd Ave, Miami, FL 33131",
+    "price": "Full Pass $199",
+    "description": "5 dedicated ballrooms: Bachata Sensual, Classic Mambo Salsa, Urban Kiz, Brazilian Zouk, and Sunset Pool Parties. Over 60 international master instructors.",
+    "eventUrl": "https://miamisensualexperience.com",
+    "status": "approved"
+  },
+  {
+    "id": "madrid-dance-festival-2026",
+    "companyName": "Madrid Sensual & Latin Dance Festival",
+    "eventType": "festival",
+    "danceStyles": ["Bachata", "Salsa", "Kizomba"],
+    "ballroomCount": 4,
+    "frequency": "one-time",
+    "date": "2026-12-04",
+    "dateTime": {
+      "startTime": "12:00",
+      "endTime": "07:00",
+      "endsNextDay": true
+    },
+    "city": "Madrid",
+    "citySlug": "madrid",
+    "country": "Spain",
+    "location": "Hotel Marriott Auditorium, Av. de Aragón, 400, 28022 Madrid, Spain",
+    "price": "Full Pass €165",
+    "description": "Spain's premier winter Latin dance congress. Massive masterclass auditoriums, live concert series, and nonstop social dancing until sunrise.",
+    "eventUrl": "https://madriddancefestival.com",
+    "status": "approved"
+  },
+  {
+    "id": "new-york-latin-congress-2027",
+    "companyName": "New York International Latin Congress (NYISC)",
+    "eventType": "festival",
+    "danceStyles": ["Salsa", "Bachata", "Brazilian Zouk", "Merengue"],
+    "ballroomCount": 4,
+    "frequency": "one-time",
+    "date": "2027-09-02",
+    "dateTime": {
+      "startTime": "10:00",
+      "endTime": "05:00",
+      "endsNextDay": true
+    },
+    "city": "New York",
+    "citySlug": "new-york",
+    "country": "United States",
+    "location": "New York Marriott Marquis, 1535 Broadway, Times Square, NY 10036",
+    "price": "Full Pass $240",
+    "description": "Times Square's iconic multi-genre celebration: The world capital of Mambo, Bachata, and Zouk with legendary live Latin orchestras and master showcases.",
+    "eventUrl": "https://newyorksalsacongress.com",
+    "status": "approved"
+  },
+  {
+    "id": "paris-latin-dance-marathon-2027",
+    "companyName": "Paris Latin Dance Marathon & Congress",
+    "eventType": "festival",
+    "danceStyles": ["Salsa", "Bachata", "Kizomba"],
+    "ballroomCount": 3,
+    "frequency": "one-time",
+    "date": "2027-04-16",
+    "dateTime": {
+      "startTime": "14:00",
+      "endTime": "06:00",
+      "endsNextDay": true
+    },
+    "city": "Paris",
+    "citySlug": "paris",
+    "country": "France",
+    "location": "Espace Jean Monnet, 47 Rue des Meuniers, 94150 Rungis, Paris, France",
+    "price": "Full Pass €180",
+    "description": "Non-stop 72-hour European social dance marathon featuring world-renowned DJs, French elegance, and dancers from over 45 countries.",
+    "eventUrl": "https://parislatindance.com",
+    "status": "approved"
+  },
+  {
+    "id": "croatia-summer-sensual-salsa-2027",
+    "companyName": "Croatia Summer Sensual Days & Summer Salsa Festival",
+    "eventType": "festival",
+    "danceStyles": ["Bachata", "Salsa", "Kizomba", "Brazilian Zouk"],
+    "ballroomCount": 5,
+    "frequency": "one-time",
+    "date": "2027-06-18",
+    "dateTime": {
+      "startTime": "11:00",
+      "endTime": "07:00",
+      "endsNextDay": true
+    },
+    "city": "Rovinj",
+    "citySlug": "rovinj",
+    "country": "Croatia",
+    "location": "Old Tobacco Factory & Adriatic Coast, Rovinj, Croatia",
+    "price": "Combo Pass €290",
+    "description": "The world's premier Latin dance summer vacation: Boat parties, open-air beach socials, castle workshops, and thousands of international dancers.",
+    "eventUrl": "https://crosalsafestival.com",
+    "status": "approved"
+  },
+  {
+    "id": "chicago-international-latin-congress-2027",
+    "companyName": "Chicago International Salsa & Bachata Congress",
+    "eventType": "festival",
+    "danceStyles": ["Salsa", "Bachata", "Kizomba", "Cha Cha"],
+    "ballroomCount": 4,
+    "frequency": "one-time",
+    "date": "2027-02-11",
+    "dateTime": {
+      "startTime": "10:00",
+      "endTime": "06:00",
+      "endsNextDay": true
+    },
+    "city": "Chicago",
+    "citySlug": "chicago",
+    "country": "United States",
+    "location": "Hyatt Regency O'Hare, 9300 Bryn Mawr Ave, Rosemont, IL 60018",
+    "price": "Full Pass $215",
+    "description": "The longest-running winter Latin dance congress in North America: 4 mega-ballrooms, live headliner salsa concerts, and 4 nights of non-stop social dancing.",
+    "eventUrl": "https://chicagosalsacongress.com",
+    "status": "approved"
+  },
+  {
+    "id": "london-latin-dance-fest-2027",
+    "companyName": "London Latin Dance Fest & Gala",
+    "eventType": "festival",
+    "danceStyles": ["Salsa", "Bachata", "Brazilian Zouk"],
+    "ballroomCount": 3,
+    "frequency": "one-time",
+    "date": "2027-05-28",
+    "dateTime": {
+      "startTime": "13:00",
+      "endTime": "05:00",
+      "endsNextDay": true
+    },
+    "city": "London",
+    "citySlug": "london",
+    "country": "United Kingdom",
+    "location": "Novotel London West, 1 Shortlands, London W6 8DR, United Kingdom",
+    "price": "Full Pass £150",
+    "description": "London's flagship international Latin weekend: Dedicated Mambo On2, Sensual Bachata, and Rio Zouk rooms with top UK and global instructors.",
+    "eventUrl": "https://londonlatinfest.co.uk",
+    "status": "approved"
+  },
+  {
+    "id": "la-rumba-latin-night-denver",
+    "companyName": "La Rumba Premier Latin Night",
+    "eventType": "social",
+    "danceStyles": ["Salsa", "Bachata", "Merengue"],
+    "frequency": "weekly",
+    "date": "2026-11-07",
+    "dateTime": {
+      "day": "Saturday",
+      "startTime": "20:00",
+      "endTime": "02:00",
+      "endsNextDay": true
+    },
+    "city": "Denver",
+    "citySlug": "denver",
+    "country": "United States",
+    "location": "La Rumba, 99 W 9th Ave, Denver, CO 80204",
+    "price": "$15 drop-in",
+    "description": "Denver's legendary Latin party: 200+ dancers, live percussion, craft tropical cocktails, and an irresistible mix of Salsa, Bachata, and Merengue all night.",
+    "eventUrl": "https://larumbadenver.com",
+    "status": "approved"
+  }
+]
