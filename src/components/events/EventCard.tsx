@@ -1,7 +1,9 @@
+import Link from 'next/link';
 import { Calendar, Clock, Crown, ExternalLink, MapPin, Sparkles, Users } from 'lucide-react';
 import { FestivalPoster } from '@/components/festivals/FestivalPoster';
 import { FallbackImg } from '@/components/ui/FallbackImg';
 import { countryForCity } from '@/lib/city-country';
+import { eventCanonicalSlug } from '@/lib/slugs';
 import type { LatinDanceEvent } from '@/types';
 
 interface EventCardProps {
@@ -19,6 +21,7 @@ export function EventCard({ event }: EventCardProps) {
   const isFestival = event.eventType === 'festival';
   const isSocial = event.eventType === 'social';
   const country = countryForCity(event.city, event.country);
+  const slug = eventCanonicalSlug(event);
 
   // 1. Rich Congress / Festival Poster Card
   if (isFestival) {
@@ -82,7 +85,9 @@ export function EventCard({ event }: EventCardProps) {
             </div>
 
             <h3 className="fcard-title">
-              {event.companyName}
+              <Link href={`/events/${slug}`} className="hover:text-amber-300 transition">
+                {event.companyName}
+              </Link>
             </h3>
 
             {/* Headline Artists (if available) */}
@@ -188,7 +193,9 @@ export function EventCard({ event }: EventCardProps) {
             </div>
 
             <h3 className="font-display text-base sm:text-lg font-bold text-white group-hover:text-amber-300 transition leading-snug truncate">
-              {event.companyName}
+              <Link href={`/events/${slug}`} className="hover:underline">
+                {event.companyName}
+              </Link>
             </h3>
 
             <div className="mt-2 space-y-1 text-xs text-zinc-400">

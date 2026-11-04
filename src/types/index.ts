@@ -29,3 +29,5 @@ export interface LatinDanceEvent {
   artists?: string[];
   status: 'approved' | 'pending';
 }
+
+export type LatinEvent = LatinDanceEvent;
