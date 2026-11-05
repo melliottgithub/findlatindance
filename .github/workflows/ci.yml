@@ -5,10 +5,19 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  workflow_dispatch:
+  schedule:
+    # Daily rebuild + deploy at 07:37 UTC to keep date windows and sitemaps fresh
+    - cron: '37 7 * * *'
+
+concurrency:
+  group: deploy-latindance-${{ github.ref }}
+  cancel-in-progress: false
 
 permissions:
   contents: read
   id-token: write
+  issues: write
 
 jobs:
   test-and-build:
@@ -48,18 +57,49 @@ jobs:
           echo "Build verification passed!"
 
       - name: Configure AWS Credentials (OIDC)
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event_name == 'schedule')
         uses: aws-actions/configure-aws-credentials@v6
         with:
           role-to-assume: arn:aws:iam::037747827681:role/findbachata-github-deploy
           aws-region: us-east-1
 
       - name: Deploy to S3
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event_name == 'schedule')
         run: |
           aws s3 sync out/ s3://findlatindance-frontend-prod --delete
 
       - name: Invalidate CloudFront Cache
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event_name == 'schedule')
         run: |
           aws cloudfront create-invalidation --distribution-id E2VSTCCNFCXZUV --paths "/*"
+
+      - name: Post-deploy live smoke test
+        if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event_name == 'schedule')
+        run: |
+          set -e
+          for path in / /festivals /cities/miami; do
+            ok=0
+            for attempt in 1 2 3 4; do
+              code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 15 "https://findlatindance.com$path")
+              if [ "$code" = "200" ]; then ok=1; break; fi
+              echo "smoke: $path -> HTTP $code (attempt $attempt), retrying in 10s..."
+              sleep 10
+            done
+            [ "$ok" = "1" ] || { echo "SMOKE FAIL: $path never returned 200"; exit 1; }
+            echo "smoke OK: $path"
+          done
+
+      - name: Notify on failure (GitHub issue -> email)
+        if: failure() && github.ref == 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title="FindLatinDance Deploy Pipeline failing on main"
+          existing=$(gh issue list --repo "$GITHUB_REPOSITORY" --state open \
+            --search "in:title \"$title\"" --json number --jq '.[0].number // empty')
+          body="Run failed: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID (trigger: $GITHUB_EVENT_NAME, $(date -u +%Y-%m-%dT%H:%MZ))"
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --repo "$GITHUB_REPOSITORY" --body "$body"
+          else
+            gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" --body "$body"
+          fi
