@@ -3,14 +3,31 @@
 @import "@fontsource-variable/inter";
 
 :root {
+  --background: #fafaf9;
+  --foreground: #1c1917;
+  --muted: #78716c;
+  --card-bg: rgba(255, 255, 255, 0.95);
+  --card-border: rgba(212, 175, 55, 0.35);
+  --header-bg: rgba(255, 255, 255, 0.85);
+  --gold-primary: #b45309;
+  --gold-vibrant: #d97706;
+  --gold-light: #fef3c7;
+  --gold-dark: #78350f;
+  color-scheme: light;
+}
+
+.dark {
   --background: #070709;
   --foreground: #f8fafc;
+  --muted: #a1a1aa;
   --card-bg: rgba(16, 16, 22, 0.85);
   --card-border: rgba(212, 175, 55, 0.22);
+  --header-bg: rgba(7, 7, 9, 0.85);
   --gold-primary: #d4af37;
   --gold-vibrant: #f59e0b;
   --gold-light: #fef08a;
   --gold-dark: #b45309;
+  color-scheme: dark;
 }
 
 body {
@@ -18,6 +35,7 @@ body {
   color: var(--foreground);
   font-family: 'Inter Variable', -apple-system, BlinkMacSystemFont, sans-serif;
   overflow-x: hidden;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 h1, h2, h3, h4, .font-display {
@@ -31,6 +49,11 @@ h1, h2, h3, h4, .font-display {
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--card-border);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+}
+
+.dark .glass-gold-card {
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
 }
 
 .glass-gold-card:hover {
@@ -62,6 +85,9 @@ h1, h2, h3, h4, .font-display {
 .badge-prestige-gold {
   background: rgba(212, 175, 55, 0.12);
   border: 1px solid rgba(212, 175, 55, 0.35);
+  color: #b45309;
+}
+.dark .badge-prestige-gold {
   color: #fef08a;
 }
 
@@ -72,15 +98,23 @@ h1, h2, h3, h4, .font-display {
   flex-direction: column;
   overflow: hidden;
   border-radius: 1rem;
-  border: 1px solid rgba(212, 175, 55, 0.22);
-  background: rgba(16, 16, 22, 0.9);
+  border: 1px solid var(--card-border);
+  background: var(--card-bg);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.dark .fcard {
+  background: rgba(16, 16, 22, 0.9);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
 }
 .fcard:hover {
   border-color: rgba(212, 175, 55, 0.55);
+  box-shadow: 0 15px 35px -10px rgba(212, 175, 55, 0.25);
+  transform: translateY(-4px);
+}
+.dark .fcard:hover {
   background: rgba(22, 22, 30, 0.95);
   box-shadow: 0 15px 35px -10px rgba(212, 175, 55, 0.3);
-  transform: translateY(-4px);
 }
 .fcard-media {
   position: relative;
@@ -91,7 +125,7 @@ h1, h2, h3, h4, .font-display {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background: #000000;
+  background: #1c1917;
   aspect-ratio: 4 / 5;
   max-height: 18rem;
 }
@@ -171,10 +205,13 @@ h1, h2, h3, h4, .font-display {
   font-size: 1.125rem;
   font-weight: 700;
   line-height: 1.35;
-  color: #ffffff;
+  color: var(--foreground);
   transition: color 0.2s ease;
 }
 .fcard:hover .fcard-title {
+  color: #b45309;
+}
+.dark .fcard:hover .fcard-title {
   color: #fef08a;
 }
 .fcard-meta {
@@ -184,7 +221,7 @@ h1, h2, h3, h4, .font-display {
   gap: 0.5rem;
   font-size: 0.75rem;
   font-weight: 500;
-  color: #a1a1aa;
+  color: var(--muted);
 }
 .fcard-actions {
   position: relative;
@@ -194,7 +231,7 @@ h1, h2, h3, h4, .font-display {
   align-items: center;
   justify-content: space-between;
   gap: 0.5rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid var(--card-border);
   padding-top: 0.875rem;
 }
 .fposter-bg {
@@ -205,7 +242,7 @@ h1, h2, h3, h4, .font-display {
   width: 100%;
   transform: scale(1.25);
   object-fit: cover;
-  opacity: 0.35;
+  opacity: 0.4;
   filter: blur(20px);
 }
 .fposter-fg {
