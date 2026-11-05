@@ -1,4 +1,4 @@
-name: CI Pipeline
+name: CI & Deployment Pipeline
 
 on:
   push:
@@ -6,9 +6,13 @@ on:
   pull_request:
     branches: [main]
 
+permissions:
+  contents: read
+  id-token: write
+
 jobs:
   test-and-build:
-    name: Test & Static Build
+    name: Test & Deploy
     runs-on: ubuntu-latest
 
     steps:
@@ -42,3 +46,20 @@ jobs:
           test -f out/festivals/index.html || (echo "Missing out/festivals/index.html!" && exit 1)
           test -f out/cities/miami/index.html || (echo "Missing out/cities/miami/index.html!" && exit 1)
           echo "Build verification passed!"
+
+      - name: Configure AWS Credentials (OIDC)
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::037747827681:role/findbachata-github-deploy
+          aws-region: us-east-1
+
+      - name: Deploy to S3
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: |
+          aws s3 sync out/ s3://findlatindance-frontend-prod --delete
+
+      - name: Invalidate CloudFront Cache
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: |
+          aws cloudfront create-invalidation --distribution-id E2VSTCCNFCXZUV --paths "/*"
