@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
+    "prebuild": "node scripts/generate-recs.mjs",
+    "build:recs": "node scripts/generate-recs.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "tsc --noEmit",

@@ -1,6 +1,7 @@
+import recsData from '@/data/recs.json';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { ArrowLeft, Calendar, Clock, ExternalLink, MapPin, Sparkles, Tag, Users } from 'lucide-react';
+import { ArrowLeft, Calendar, Clock, ExternalLink, MapPin, Sparkles, Tag, Users, Flame, PartyPopper } from 'lucide-react';
 import eventsData from '@/data/events.json';
 import { eventCanonicalSlug } from '@/lib/slugs';
 import { countryForCity } from '@/lib/city-country';
@@ -63,9 +64,23 @@ export default async function EventDetailPage({ params }: { params: Promise<{ sl
 
   const country = countryForCity(event.city, event.country);
   const isFestival = event.eventType === 'festival';
-  const relatedInCity = events
-    .filter((e) => e.city.toLowerCase() === event.city.toLowerCase() && eventCanonicalSlug(e) !== slug)
-    .slice(0, 3);
+
+  // Multi-tier recommender resolution (FindBachata SOTA architecture)
+  const baked = (recsData as any).events?.[slug];
+  const resolveList = (slugs?: string[]): LatinEvent[] => {
+    if (!slugs || slugs.length === 0) return [];
+    return slugs
+      .map((s) => eventMap.get(s))
+      .filter((e): e is LatinEvent => Boolean(e) && eventCanonicalSlug(e!) !== slug);
+  };
+
+  const bakedInCity = resolveList(baked?.relatedInCity);
+  const relatedInCity = bakedInCity.length > 0
+    ? bakedInCity.slice(0, 6)
+    : events.filter((e) => e.city.toLowerCase() === event.city.toLowerCase() && eventCanonicalSlug(e) !== slug).slice(0, 6);
+
+  const relatedSocials = resolveList(baked?.relatedSocials).slice(0, 6);
+  const relatedFestivals = resolveList(baked?.relatedFestivals).slice(0, 6);
 
   const eventJsonLd = generateEventJsonLd(event, slug);
   const breadcrumbJsonLd = generateBreadcrumbJsonLd(
@@ -78,6 +93,33 @@ export default async function EventDetailPage({ params }: { params: Promise<{ sl
     'https://findlatindance.com'
   );
 
+  // Schema.org ItemList for crawl equity across recommended events
+  const primaryRecs = relatedInCity.length > 0 ? relatedInCity : relatedSocials;
+  const recsItemListJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: `Recommended Latin Dance Events and Festivals related to ${event.companyName}`,
+    itemListElement: primaryRecs.map((rel, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      item: {
+        '@type': 'Event',
+        name: rel.companyName,
+        startDate: rel.date,
+        location: {
+          '@type': 'Place',
+          name: rel.location,
+          address: {
+            '@type': 'PostalAddress',
+            addressLocality: rel.city,
+            addressCountry: rel.country,
+          },
+        },
+        url: `https://findlatindance.com/events/${eventCanonicalSlug(rel)}`,
+      },
+    })),
+  };
+
   return (
     <>
       <script
@@ -88,6 +130,12 @@ export default async function EventDetailPage({ params }: { params: Promise<{ sl
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: safeJsonLdString(breadcrumbJsonLd) }}
       />
+      {recsItemListJsonLd.itemListElement.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: safeJsonLdString(recsItemListJsonLd) }}
+        />
+      )}
 
       <main className="min-h-screen bg-[#08080c] text-zinc-100 pb-20">
         {/* Navigation Breadcrumb */}
@@ -272,13 +320,14 @@ export default async function EventDetailPage({ params }: { params: Promise<{ sl
             <NextNav />
           </div>
 
-          {/* Related Events in City */}
+          {/* TIER 1: More Latin Dance in City */}
           {relatedInCity.length > 0 && (
             <div className="mt-14">
               <div className="flex items-center justify-between mb-6">
                 <div>
-                  <h2 className="font-display text-xl font-bold text-white">
-                    More Latin Dance in {event.city}
+                  <h2 className="font-display text-xl font-bold text-white flex items-center gap-2">
+                    <MapPin className="w-5 h-5 text-amber-400" />
+                    <span>More Latin Dance in {event.city}</span>
                   </h2>
                   <p className="text-xs text-zinc-400 mt-0.5">
                     Explore multi-room socials and dance academies nearby
@@ -292,7 +341,7 @@ export default async function EventDetailPage({ params }: { params: Promise<{ sl
                 </Link>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {relatedInCity.map((rel) => (
                   <Link
                     key={eventCanonicalSlug(rel)}
@@ -306,6 +355,88 @@ export default async function EventDetailPage({ params }: { params: Promise<{ sl
                       {rel.companyName}
                     </h3>
                     <p className="text-xs text-zinc-400 mt-1 line-clamp-1">{rel.location}</p>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* TIER 2: Featured Congresses & Festivals (FindBachata SOTA Parity) */}
+          {relatedFestivals.length > 0 && (
+            <div className="mt-14">
+              <div className="flex items-center justify-between mb-6">
+                <div>
+                  <h2 className="font-display text-xl font-bold text-white flex items-center gap-2">
+                    <PartyPopper className="w-5 h-5 text-amber-400" />
+                    <span>Upcoming Multi-Room Congresses & Festivals</span>
+                  </h2>
+                  <p className="text-xs text-zinc-400 mt-0.5">
+                    Weekend festivals with Salsa, Bachata, Kizomba & Zouk rooms
+                  </p>
+                </div>
+                <Link
+                  href="/festivals"
+                  className="text-xs font-semibold text-amber-400 hover:text-amber-300 transition"
+                >
+                  Full 2027 Calendar →
+                </Link>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {relatedFestivals.map((fest) => (
+                  <Link
+                    key={eventCanonicalSlug(fest)}
+                    href={`/events/${eventCanonicalSlug(fest)}`}
+                    className="group rounded-2xl border border-amber-500/20 bg-[#14120e] p-4 transition-all hover:-translate-y-1 hover:border-amber-400/40"
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-amber-400">
+                        Congress · {fest.date}
+                      </span>
+                      <span className="text-[10px] text-zinc-400 font-medium">{fest.city}</span>
+                    </div>
+                    <h3 className="text-sm font-bold text-white group-hover:text-amber-300 transition mt-1 truncate">
+                      {fest.companyName}
+                    </h3>
+                    <p className="text-xs text-zinc-400 mt-1 line-clamp-1">{fest.location}</p>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* TIER 3: Style-Matched Socials You Might Like */}
+          {relatedSocials.length > 0 && (
+            <div className="mt-14">
+              <div className="flex items-center justify-between mb-6">
+                <div>
+                  <h2 className="font-display text-xl font-bold text-white flex items-center gap-2">
+                    <Flame className="w-5 h-5 text-amber-400" />
+                    <span>More Social Dances & Academies You'll Love</span>
+                  </h2>
+                  <p className="text-xs text-zinc-400 mt-0.5">
+                    Curated multi-genre Latin dance nights and weekly party schedules
+                  </p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {relatedSocials.map((soc) => (
+                  <Link
+                    key={eventCanonicalSlug(soc)}
+                    href={`/events/${eventCanonicalSlug(soc)}`}
+                    className="group rounded-2xl border border-white/10 bg-[#101016] p-4 transition-all hover:-translate-y-1 hover:border-amber-400/30"
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-amber-400">
+                        {soc.eventType} · {soc.date}
+                      </span>
+                      <span className="text-[10px] text-zinc-400 font-medium">{soc.city}</span>
+                    </div>
+                    <h3 className="text-sm font-bold text-white group-hover:text-amber-300 transition mt-1 truncate">
+                      {soc.companyName}
+                    </h3>
+                    <p className="text-xs text-zinc-400 mt-1 line-clamp-1">{soc.location}</p>
                   </Link>
                 ))}
               </div>
