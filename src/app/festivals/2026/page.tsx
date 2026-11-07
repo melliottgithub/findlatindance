@@ -7,7 +7,7 @@ import { Calendar, Globe2 } from 'lucide-react';
 
 export const metadata = {
   title: 'Latin Dance Congresses & Festivals 2026 Calendar — FindLatinDance',
-  description: 'Verified worldwide directory of Latin dance congresses, marathons, and festivals in 2026. Official ticket links, master artist lineups, and venue details.',
+  description: 'Worldwide directory of Latin dance congresses, marathons, and festivals in 2026. Official ticket links, master artist lineups, and venue details.',
   alternates: {
     canonical: 'https://findlatindance.com/festivals/2026',
   },

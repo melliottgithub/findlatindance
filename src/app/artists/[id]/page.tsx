@@ -160,7 +160,7 @@ export default async function ArtistDetailPage({ params }: ArtistPageProps) {
                 <span>Upcoming Festivals &amp; Congresses ({festivals.length})</span>
               </h2>
               <p className="text-xs sm:text-sm text-zinc-400 mt-1">
-                Verified appearances and masterclasses featuring {artist.name}.
+                Appearances and masterclasses featuring {artist.name}.
               </p>
             </div>
           </div>

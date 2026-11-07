@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
   const country = countryForCity(event.city, event.country);
   const title = `${event.companyName} in ${event.city}, ${country.name} (${event.date}) — FindLatinDance`;
-  const description = `${event.companyName} on ${event.date} at ${event.location}. Verified multi-room Latin dance event with schedules, ballroom styles, and passes on FindLatinDance.`;
+  const description = `${event.companyName} on ${event.date} at ${event.location}. Multi-room Latin dance event with schedules, ballroom styles, and passes on FindLatinDance.`;
 
   return {
     title,

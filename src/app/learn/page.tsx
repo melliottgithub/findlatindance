@@ -36,7 +36,7 @@ export default function LearnIndexPage() {
               Master the Styles, Rhythms & Culture of Latin Dancing
             </h1>
             <p className="mt-4 text-base sm:text-lg text-zinc-300 leading-relaxed">
-              Whether you are stepping onto the floor for your first salsa lesson or mastering the counterbalances of Brazilian Zouk, our curated guides give you the rhythm breakdowns, dress codes, and floor craft etiquette to dance with confidence worldwide.
+              Whether you are stepping onto the floor for your first salsa lesson or mastering the counterbalances of Brazilian Zouk, our comprehensive guides give you the rhythm breakdowns, dress codes, and floor craft etiquette to dance with confidence worldwide.
             </p>
           </div>
         </header>

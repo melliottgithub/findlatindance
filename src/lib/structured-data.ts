@@ -108,7 +108,7 @@ export function generateCityWebPageJsonLd(
     '@id': `${baseUrl}/cities/${slug}#collection`,
     url: `${baseUrl}/cities/${slug}`,
     name: `Latin Dancing in ${cityName} — Multi-Room Congresses & Social Nights`,
-    description: `Verified directory of ${counts.total} upcoming Latin dance events in ${cityName}: ${counts.social} multi-room socials, ${counts.class} academy classes, and ${counts.festival} congresses.`,
+    description: `Directory of ${counts.total} upcoming Latin dance events in ${cityName}: ${counts.social} multi-room socials, ${counts.class} academy classes, and ${counts.festival} congresses.`,
     about: [
       {
         '@type': 'Place',

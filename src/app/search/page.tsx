@@ -134,7 +134,7 @@ export default function SearchPage() {
           Search Worldwide Latin Dance
         </h1>
         <p className="mt-1.5 text-sm sm:text-base text-zinc-400 max-w-2xl">
-          Instantly filter verified salsa, bachata, zouk, and kizomba socials, masterclasses, and international congresses across 39 dance capitals.
+          Instantly filter salsa, bachata, zouk, and kizomba socials, masterclasses, and international congresses across dance capitals worldwide.
         </p>
       </div>
 
@@ -342,7 +342,7 @@ export default function SearchPage() {
                     <p className="text-sm font-bold text-white group-hover:text-amber-300 transition truncate">
                       {city}
                     </p>
-                    <p className="text-xs text-zinc-400 mt-0.5">{count} verified events</p>
+                    <p className="text-xs text-zinc-400 mt-0.5">{count} upcoming events</p>
                   </Link>
                 );
               })}

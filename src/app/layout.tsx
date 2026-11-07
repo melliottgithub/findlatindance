@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'FindLatinDance — Worldwide Latin Dance Congresses & Socials',
-    description: 'Find verified Latin dance events worldwide: Multi-room congresses, weekend festivals, and authentic Latin club nights.',
+    description: 'Find Latin dance events worldwide: Multi-room congresses, weekend festivals, and authentic Latin club nights.',
     url: 'https://findlatindance.com',
     siteName: 'FindLatinDance',
     type: 'website',

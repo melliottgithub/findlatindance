@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: CityPageProps): Promise<Metad
   const classCount = cityEvents.filter((e) => e.eventType === 'class').length;
 
   const title = `Latin Dancing in ${cityName}, ${country.name} — Multi-Room Congresses & Socials — FindLatinDance`;
-  const description = `Verified guide to ${cityEvents.length} upcoming Latin dance events in ${cityName}: ${socialCount} multi-room socials, ${classCount} dance classes, and ${festivalCount} congresses with ballrooms and schedules.`;
+  const description = `Guide to ${cityEvents.length} upcoming Latin dance events in ${cityName}: ${socialCount} multi-room socials, ${classCount} dance classes, and ${festivalCount} congresses with ballrooms and schedules.`;
 
   return {
     title,
@@ -160,7 +160,7 @@ export default async function CityPage({ params }: CityPageProps) {
             </h1>
 
             <p className="mt-3 text-sm sm:text-base text-zinc-300 leading-relaxed max-w-2xl">
-              Verified multi-room Latin congresses, weekly social dances, and masterclasses across Salsa, Bachata, Brazilian Zouk, and Kizomba in {cityName}.
+              Multi-room Latin congresses, weekly social dances, and masterclasses across Salsa, Bachata, Brazilian Zouk, and Kizomba in {cityName}.
             </p>
 
             {/* Quick Metrics Bar */}
