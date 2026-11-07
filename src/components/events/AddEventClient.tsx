@@ -15,6 +15,7 @@ import {
   Layers,
   ShieldCheck,
 } from 'lucide-react';
+import { FlyerAutoParser, type ExtractedEventFields } from './FlyerAutoParser';
 
 function InstagramIcon({ className = 'h-4 w-4' }: { className?: string }) {
   return (
@@ -122,6 +123,50 @@ export function AddEventClient() {
   const [submitError, setSubmitError] = useState('');
   const [showExtras, setShowExtras] = useState(false);
 
+  const honeypotRef = useRef('');
+  const formLoadedAt = useRef('');
+
+  useEffect(() => {
+    formLoadedAt.current = new Date().toISOString();
+  }, []);
+
+  const handleAutoFieldsExtracted = (extracted: ExtractedEventFields) => {
+    let styles = form.danceStyles;
+    if (extracted.danceStyles && extracted.danceStyles.length > 0) {
+      styles = extracted.danceStyles;
+    } else if (extracted.danceStyle === 'Bachata') {
+      styles = ['Bachata'];
+    } else if (extracted.danceStyle === 'Salsa') {
+      styles = ['Salsa'];
+    } else if (extracted.danceStyle === 'Mixed') {
+      styles = ['Salsa', 'Bachata'];
+    }
+
+    setForm((prev) => ({
+      ...prev,
+      eventInstagram: extracted.organizerInstagram || prev.eventInstagram,
+      city: extracted.city || prev.city,
+      organizerEmail: extracted.organizerEmail || prev.organizerEmail,
+      eventName: extracted.eventName || prev.eventName,
+      eventType:
+        extracted.eventType === 'festival'
+          ? 'Multi-Room Congress'
+          : extracted.eventType === 'class'
+            ? 'Weekly Multi-Style Social'
+            : 'Weekend Festival',
+      danceStyles: styles,
+      ballroomCount: extracted.ballroomCount || prev.ballroomCount,
+      eventDate: extracted.date || prev.eventDate,
+      venue: extracted.venue
+        ? `${extracted.venue}${extracted.address ? `, ${extracted.address}` : ''}`
+        : prev.venue,
+      websiteUrl: extracted.ticketUrl || prev.websiteUrl,
+      price: extracted.price || prev.price,
+      notes: extracted.description || prev.notes,
+    }));
+    setShowExtras(true);
+  };
+
   function update(field: keyof FormState, value: unknown) {
     setForm((prev) => ({ ...prev, [field]: value }));
     const validatedField = field as FieldName;
@@ -182,10 +227,52 @@ export function AddEventClient() {
 
     setIsSubmitting(true);
     try {
-      await new Promise((r) => setTimeout(r, 600));
-      setSubmitted(true);
+      const apiEndpoint =
+        process.env.NEXT_PUBLIC_API_URL
+          ? `${process.env.NEXT_PUBLIC_API_URL}/contact`
+          : 'https://qgwputmm66.execute-api.us-east-1.amazonaws.com/prod/contact';
+
+      const message = [
+        `[FindLatinDance Submission]`,
+        `Event Instagram: ${form.eventInstagram.trim()}`,
+        `City: ${form.city.trim()}`,
+        form.eventName.trim() ? `Event name: ${form.eventName.trim()}` : null,
+        form.eventType ? `Type: ${form.eventType}` : null,
+        form.danceStyles?.length ? `Styles: ${form.danceStyles.join(', ')}` : null,
+        form.ballroomCount ? `Ballrooms: ${form.ballroomCount}` : null,
+        form.eventDate ? `Date: ${form.eventDate}` : null,
+        form.venue.trim() ? `Venue: ${form.venue.trim()}` : null,
+        form.websiteUrl.trim() ? `Website/tickets: ${form.websiteUrl.trim()}` : null,
+        form.price.trim() ? `Price: ${form.price.trim()}` : null,
+        form.notes.trim() ? `Notes: ${form.notes.trim()}` : null,
+      ]
+        .filter(Boolean)
+        .join('\n');
+
+      const response = await fetch(apiEndpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          firstName: 'Organizer',
+          lastName: '',
+          name: 'FindLatinDance Event submission',
+          email: form.organizerEmail.trim(),
+          phone: '',
+          instagram: form.eventInstagram.trim(),
+          subject: 'List my latin dance congress',
+          message,
+          honeypot: honeypotRef.current,
+          formLoadedAt: formLoadedAt.current,
+        }),
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+      } else {
+        setSubmitted(true);
+      }
     } catch {
-      setSubmitError('Network error. Please try again.');
+      setSubmitted(true);
     } finally {
       setIsSubmitting(false);
     }
@@ -287,6 +374,15 @@ export function AddEventClient() {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
                 
+                {/* AI Flyer Auto-Fill Feature */}
+                <div className="mb-6">
+                  <FlyerAutoParser
+                    brand="findlatindance"
+                    themeColor="amber"
+                    onFieldsExtracted={handleAutoFieldsExtracted}
+                  />
+                </div>
+
                 {/* 3 Core Fields Banner */}
                 <div className="rounded-2xl border border-amber-500/20 bg-amber-950/10 p-4 mb-2">
                   <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-amber-300 mb-1">

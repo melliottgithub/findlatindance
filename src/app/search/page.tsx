@@ -6,7 +6,8 @@ import { EventCard } from '@/components/events/EventCard';
 import { ListNavScope } from '@/components/events/ListNavScope';
 import eventsData from '@/data/events.json';
 import type { LatinDanceEvent } from '@/types';
-import { Search as SearchIcon, X, Calendar, MapPin, Sparkles, Filter, Globe2 } from 'lucide-react';
+import { Search as SearchIcon, X, Calendar, MapPin, Sparkles, Filter, Globe2, Camera } from 'lucide-react';
+import { VisualSearchModal } from '@/components/search/VisualSearchModal';
 
 const TOP_CITIES = [
   'Miami',
@@ -42,6 +43,7 @@ export default function SearchPage() {
   const [selectedStyle, setSelectedStyle] = useState('all');
   const [selectedCity, setSelectedCity] = useState<string | null>(null);
   const [timeFilter, setTimeFilter] = useState<'all' | 'weekend' | 'month'>('all');
+  const [visualModalOpen, setVisualModalOpen] = useState(false);
 
   const events = eventsData as LatinDanceEvent[];
 
@@ -146,14 +148,26 @@ export default function SearchPage() {
           placeholder="Search by city, genre, venue, or artist (e.g. 'Miami', 'Zouk', 'Ataca', 'Bachata')..."
           className="w-full rounded-2xl border border-white/10 bg-zinc-900/90 py-3.5 pl-12 pr-10 text-sm text-white placeholder-zinc-500 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500 shadow-xl transition"
         />
-        {query && (
+        <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1.5">
+          {query && (
+            <button
+              onClick={() => setQuery('')}
+              className="text-zinc-500 hover:text-white p-1"
+            >
+              <X className="h-4 w-4" />
+            </button>
+          )}
           <button
-            onClick={() => setQuery('')}
-            className="absolute right-3.5 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-white"
+            type="button"
+            onClick={() => setVisualModalOpen(true)}
+            title="Snap a flyer / Visual search"
+            aria-label="Snap flyer to search"
+            className="flex items-center gap-1.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 px-2.5 py-1 text-xs font-semibold text-amber-300 transition"
           >
-            <X className="h-4 w-4" />
+            <Camera className="h-3.5 w-3.5" />
+            <span className="hidden sm:inline">Snap Flyer</span>
           </button>
-        )}
+        </div>
       </div>
 
       {/* Filter Controls Row */}
@@ -357,6 +371,12 @@ export default function SearchPage() {
         </div>
       )}
 
+      {/* Visual Search Modal */}
+      <VisualSearchModal
+        isOpen={visualModalOpen}
+        onClose={() => setVisualModalOpen(false)}
+        brand="findlatindance"
+      />
     </div>
   );
 }
